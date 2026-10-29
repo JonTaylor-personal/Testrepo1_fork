@@ -44,7 +44,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          # The .zip copy avoids Chrome on Android hanging on its APK download check.
+          zip -j OpeningCoach.zip OpeningCoach.apk
           gh release delete latest-apk --cleanup-tag --yes || true
-          gh release create latest-apk OpeningCoach.apk --prerelease --target "$GITHUB_SHA" \
+          gh release create latest-apk OpeningCoach.apk OpeningCoach.zip --prerelease --target "$GITHUB_SHA" \
             --title "Opening Coach (latest build)" \
-            --notes "Built from ${GITHUB_REF_NAME} @ ${GITHUB_SHA::7}. On your Android phone, download OpeningCoach.apk and open it to install."
+            --notes "Built from ${GITHUB_REF_NAME} @ ${GITHUB_SHA::7}. On your Android phone, download OpeningCoach.apk and open it to install. If Chrome gets stuck on \"Downloading…\", download OpeningCoach.zip instead, open it in the Files app, extract it and tap OpeningCoach.apk."

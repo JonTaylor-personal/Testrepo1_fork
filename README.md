@@ -24,6 +24,8 @@ Progress is saved on the device. "Next unexplored line" takes you to the branche
 2. On the phone, open the repository's **Releases** page → *Opening Coach (latest build)* → download **`OpeningCoach.apk`**.
 3. Open the downloaded file. If Android asks, allow your browser to *install unknown apps*, then tap **Install**.
 
+If Chrome stays on "Downloading…" forever, it's stuck on its own APK safety check. Download **`OpeningCoach.zip`** instead. Then open **Files → Downloads**, tap the zip, choose **Extract**, and tap `OpeningCoach.apk`. You may need to allow *Files* to install unknown apps.
+
 New builds use the same signing key, so they install over the old version and keep your progress.
 
 The app works fully offline.
