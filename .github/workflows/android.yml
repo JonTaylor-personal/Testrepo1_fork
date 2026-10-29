@@ -1,0 +1,50 @@
+name: Build Android APK
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Test chess engine and lesson content
+        run: |
+          node test/engine.test.js
+          node test/lessons.test.js
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Build APK
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew --no-daemon assembleRelease
+          cp app/build/outputs/apk/release/app-release.apk "$GITHUB_WORKSPACE/OpeningCoach.apk"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: OpeningCoach-apk
+          path: OpeningCoach.apk
+
+      # Publishes the APK at a stable download link: .../releases/download/latest-apk/OpeningCoach.apk
+      - name: Publish "latest-apk" release
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete latest-apk --cleanup-tag --yes || true
+          gh release create latest-apk OpeningCoach.apk --prerelease --target "$GITHUB_SHA" \
+            --title "Opening Coach (latest build)" \
+            --notes "Built from ${GITHUB_REF_NAME} @ ${GITHUB_SHA::7}. On your Android phone, download OpeningCoach.apk and open it to install."

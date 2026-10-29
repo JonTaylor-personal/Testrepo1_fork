@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- A pawn: head, body and base. -->
+    <path
+        android:fillColor="@color/icon_foreground"
+        android:pathData="M54,27a9,9 0,1 0,0.01 0z M45,48h18l-3,6c3,6 5,13 6,22H42c1,-9 3,-16 6,-22z M39,76h30a3,3 0,0 1,3 3v5H36v-5a3,3 0,0 1,3 -3z" />
+</vector>

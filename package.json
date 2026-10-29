@@ -1,0 +1,9 @@
+{
+  "name": "opening-coach",
+  "private": true,
+  "description": "Beginner chess openings trainer (web app + Android wrapper).",
+  "scripts": {
+    "test": "node test/engine.test.js && node test/lessons.test.js",
+    "start": "python3 -m http.server 8000 --directory web"
+  }
+}
